@@ -4,7 +4,6 @@
 
 :root .fa-sun { display: none; }
 
-:root .fa-moon { padding-left: 10px; padding-top: 12px; display: block; }
 
 
 html[data-theme='dark'] .fa-sun { padding-left: 10px; padding-top: 12px; display: block; }
