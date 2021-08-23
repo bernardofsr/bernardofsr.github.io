@@ -229,39 +229,51 @@
         <p><strong>NOTE:</strong>
           At this moment the CVEs are not yet public, however, they are reserved with the following codes: <b>CVE-2021-38143 - Stored XSS</b>, <b>CVE-2021-38144 - Reflected XSS</b> and <b>CVE-2021-38145 - SQL Injection</b>
 
-<h2 id="equations">Equations</h2>
+<h2 id="CVE-2021-38143">CVE-2021-38143 - Stored XSS</h2>
 
-<p>This theme supports rendering beautiful math in inline and display modes using <a href="https://www.mathjax.org/" target="\_blank">MathJax 3</a> engine.
-You just need to surround your math expression with <code class="language-plaintext highlighter-rouge">$$</code>, like <code class="language-plaintext highlighter-rouge">$$ E = mc^2 $$</code>.
-If you leave it inside a paragraph, it will produce an inline expression, just like \(E = mc^2\).</p>
+<p>An issue was discovered in Form Tools through 3.0.20. When an administrator creates a customer account, it is possible for the customer to log in and proceed with a change of name and last name. However, these fields are vulnerable to XSS payload insertion, being triggered in the admin panel when the admin tries to see the client list. This type of XSS (Stored) can lead to the extraction of the PHPSESSID cookie belonging to the admin.
 
-<p>To use display mode, again surround your expression with <code class="language-plaintext highlighter-rouge">$$</code> and place it as a separate paragraph.
-Here is an example:</p>
+  Insertion of the payload in the "First Name" (client account) field:</p>
+  
+  <figure>
+  <p><img src="https://github.com/bernardofsr/CVEs-With-PoC/raw/main/PoCs/Form%20Tools/images/StoredXSS.png?raw=true" alt="" style="width:100%"> </p>
+  <figcaption><a href="https://github.com/bernardofsr/CVEs-With-PoC/raw/main/PoCs/Form%20Tools/images/StoredXSS.png?raw=true" target="_blank">Full quality image</a></figcaption>
+  </figure>
 
-\[\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)\]
+  <br>
 
-<p>Note that MathJax 3 is <a href="https://docs.mathjax.org/en/latest/upgrading/whats-new-3.0.html" target="\_blank">a major re-write of MathJax</a> that brought a significant improvement to the loading and rendering speed, which is now <a href="http://www.intmath.com/cg5/katex-mathjax-comparison.php" target="\_blank">on par with KaTeX</a>.</p>
-
-<hr />
-
-<h2 id="citations">Citations</h2>
-
-<p>Citations are then used in the article body with the <code class="language-plaintext highlighter-rouge">&lt;d-cite&gt;</code> tag.
-The key attribute is a reference to the id provided in the bibliography.
-The key attribute can take multiple ids, separated by commas.</p>
-
-<p>The citation is presented inline like this: <d-cite key="gregor2015draw"></d-cite> (a number that displays more information on hover).
-If you have an appendix, a bibliography is automatically created and populated in it.</p>
-
-<p>Distill chose a numerical inline citation style to improve readability of citation dense articles and because many of the benefits of longer citations are obviated by displaying more information on hover.
-However, we consider it good style to mention author last names if you discuss something at length and it fits into the flow well — the authors are human and it’s nice for them to have the community associate them with their work.</p>
+<p>The administrator logs in and opens the page with the list of clients:</p>
+<figure>
+  <p><img src="https://github.com/bernardofsr/CVEs-With-PoC/raw/main/PoCs/Form%20Tools/images/StoredXSS2.png?raw=true" alt="" style="width:100%"> </p>
+  <figcaption><a href="https://github.com/bernardofsr/CVEs-With-PoC/raw/main/PoCs/Form%20Tools/images/StoredXSS2.png?raw=true" target="_blank">Full quality image</a></figcaption>
+  </figure>
+<p>XSS triggered and exposing the admin cookie.</p>
 
 <hr />
 
-<h2 id="footnotes">Footnotes</h2>
+<h2 id="CVE-2021-38144">CVE-2021-38144 - Reflected XSS</h2>
 
-<p>Just wrap the text you would like to show up in a footnote in a <code class="language-plaintext highlighter-rouge">&lt;d-footnote&gt;</code> tag.
-The number of the footnote will be automatically generated.<d-footnote>This will become a hoverable footnote.</d-footnote></p>
+<p>An issue was discovered in Form Tools through 3.0.20. A low-privileged user can trigger Reflected XSS when viewing form via the submission_id parameter, e.g., <code class="language-plaintext highlighter-rouge">clients/forms/edit_submission.php?form_id=1&view_id=1&submission_id=[XSS]</code></p>
+
+<figure>
+  <p><img src="https://github.com/bernardofsr/CVEs-With-PoC/raw/main/PoCs/Form%20Tools/images/ReflectedXSS.png?raw=true" alt="" style="width:100%"> </p>
+  <figcaption><a href="https://github.com/bernardofsr/CVEs-With-PoC/raw/main/PoCs/Form%20Tools/images/ReflectedXSS.png?raw=true" target="_blank">Full quality image</a></figcaption>
+  </figure>
+
+<hr />
+
+<h2 id="CVE-2021-38145">CVE-2021-38145 - SQL Injection
+</h2>
+
+<p>An issue was discovered in Form Tools through 3.0.20. SQL Injection can occur via the <b>export_group_id</b> field when a low-privileged user (client) try to export a form with data, e.g., manipulation of <code class="language-plaintext highlighter-rouge">modules/export_manager/export.php?export_group_id=1&export_group_1_results=all&export_type_id=1</code></p>
+
+
+<p>Create data table export using a normal user account by clicking <i>display:</i></p>
+
+<figure>
+  <p><img src="https://github.com/bernardofsr/CVEs-With-PoC/raw/main/PoCs/Form%20Tools/images/SQLI1.png?raw=true" alt="" style="width:100%"> </p>
+  <figcaption><a href="https://github.com/bernardofsr/CVEs-With-PoC/raw/main/PoCs/Form%20Tools/images/SQLI1.png?raw=true" target="_blank">Full quality image</a></figcaption>
+  </figure>
 
 <hr />
 
