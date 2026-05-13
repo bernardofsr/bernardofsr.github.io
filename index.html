@@ -13,138 +13,227 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --bg: #0a0f14;
+      --card: #111927;
+      --border: #1f2937;
+      --text: #d1d5db;
+      --muted: #7c8594;
+      --accent: #00ff9c;
+    }
+
     body {
-      background-color: #0d1117;
-      color: #c9d1d9;
+      background: var(--bg);
+      color: var(--text);
       font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.7;
-      max-width: 900px;
+
+      max-width: 1200px;
       margin: auto;
-      padding: 40px 20px;
+
+      padding: 50px 24px;
     }
 
     header {
       margin-bottom: 60px;
-      border-bottom: 1px solid #21262d;
-      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
     }
 
     h1 {
-      color: #58a6ff;
+      color: var(--accent);
       font-size: 3rem;
       margin-bottom: 10px;
+      letter-spacing: -1px;
     }
 
     .subtitle {
-      color: #8b949e;
+      color: var(--muted);
       font-size: 1rem;
     }
 
-    .section-title {
-      margin-bottom: 25px;
-      color: #f0f6fc;
-      font-size: 1.4rem;
+    .terminal-line {
+      margin-top: 14px;
+      color: var(--accent);
+      font-family: monospace;
+      opacity: 0.8;
     }
 
-    .post-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    .section-title {
+      margin-bottom: 30px;
+      font-size: 1.4rem;
+      color: white;
+    }
+
+    .posts-grid {
+      display: grid;
+
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+      gap: 22px;
     }
 
     .post-card {
-      border: 1px solid #21262d;
-      background: #161b22;
-      border-radius: 10px;
-      padding: 20px;
-      transition: 0.2s ease;
+      background: linear-gradient(
+        180deg,
+        rgba(17, 25, 39, 0.95),
+        rgba(10, 15, 20, 0.98)
+      );
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      padding: 24px;
+
+      transition: all 0.25s ease;
+
+      position: relative;
+      overflow: hidden;
+
+      min-height: 220px;
+    }
+
+    .post-card::before {
+      content: "";
+
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 3px;
+
+      background: var(--accent);
     }
 
     .post-card:hover {
-      border-color: #58a6ff;
-      transform: translateY(-2px);
+      transform: translateY(-5px);
+
+      border-color: rgba(0,255,156,0.3);
+
+      box-shadow:
+        0 0 25px rgba(0,255,156,0.08),
+        0 0 2px rgba(0,255,156,0.25);
     }
 
     .post-card a {
       text-decoration: none;
       color: inherit;
       display: block;
-    }
-
-    .post-title {
-      color: #58a6ff;
-      font-size: 1.3rem;
-      margin-bottom: 10px;
+      height: 100%;
     }
 
     .post-date {
-      color: #8b949e;
-      font-size: 0.9rem;
-      margin-bottom: 12px;
+      color: var(--accent);
+
+      font-family: monospace;
+      font-size: 0.85rem;
+
+      margin-bottom: 18px;
+    }
+
+    .post-title {
+      color: white;
+
+      font-size: 1.35rem;
+      font-weight: bold;
+
+      margin-bottom: 16px;
+
+      line-height: 1.4;
     }
 
     .post-description {
-      color: #c9d1d9;
+      color: #b6c2cf;
+
+      line-height: 1.8;
+      font-size: 0.96rem;
+    }
+
+    .tag {
+      display: inline-block;
+
+      margin-top: 22px;
+
+      padding: 6px 10px;
+
+      border-radius: 999px;
+
+      border: 1px solid rgba(0,255,156,0.15);
+
+      background: rgba(0,255,156,0.05);
+
+      color: var(--accent);
+
+      font-size: 0.78rem;
+      font-family: monospace;
     }
 
     footer {
-      margin-top: 60px;
-      padding-top: 20px;
-      border-top: 1px solid #21262d;
+      margin-top: 70px;
+
+      padding-top: 25px;
+
+      border-top: 1px solid var(--border);
+
       text-align: center;
-      color: #8b949e;
+
+      color: var(--muted);
+
       font-size: 0.9rem;
     }
+
   </style>
 </head>
 
 <body>
 
   <header>
+
     <h1>Bernardo.sec</h1>
 
     <p class="subtitle">
       Thoughts, notes and research on cybersecurity.
     </p>
+
+    <div class="terminal-line">
+      root@bernardo:~# ls posts/
+    </div>
+
   </header>
 
   <main>
 
-    <h2 class="section-title">Blog Posts</h2>
+    <h2 class="section-title">
+      Latest Posts
+    </h2>
 
-    <div class="post-list">
+    <div class="posts-grid">
 
-      <div class="post-card">
-        <a href="posts/why-security-incidents-start-small.html">
-          <div class="post-title">
-            Why Most Security Incidents Start Small
-          </div>
+
+      <article class="post-card">
+
+        <a href="posts/2026-05-13-about-this-blog.html">
 
           <div class="post-date">
-            May 2026
+            [ 2026-05-13 ]
+          </div>
+
+          <div class="post-title">
+            About This Blog
           </div>
 
           <div class="post-description">
-            Common operational mistakes that often become entry points for attackers.
+            Security notes from the trenches. Offense, defense, and everything in between.
           </div>
+
+          <div class="tag">
+            information
+          </div>
+
         </a>
-      </div>
 
-      <div class="post-card">
-        <a href="posts/threat-hunting-notes.html">
-          <div class="post-title">
-            Notes on Threat Hunting
-          </div>
-
-          <div class="post-date">
-            May 2026
-          </div>
-
-          <div class="post-description">
-            Thoughts about practical detection, investigation and attacker behavior.
-          </div>
-        </a>
-      </div>
+      </article>
 
     </div>
 
