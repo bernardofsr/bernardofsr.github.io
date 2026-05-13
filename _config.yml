@@ -1,0 +1,5 @@
+remote_theme: jekyll/minima
+title: "Bernardo.sec"
+description: "Thinking through cybersecurity, one post at a time."
+plugins:
+  - jekyll-remote-theme
